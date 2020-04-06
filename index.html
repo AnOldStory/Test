@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="korea twom kooi trade" />
+    <meta property="og:title" content="TWOM Trade" />
     <meta property="og:description" content="아이모 계정 거래 카페" />
     <meta property="og:image" content="https://cafefiles.pstatic.net/20130417_129/26059935_1366130809029_4e24oT_png/26059935_user_014649.png" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -32,31 +32,14 @@
         "http://www.minghui.org/",
         "https://tibet.net/",
       ];
-      window.onload = function () {
-        var ip = "";
-        var hostname = "";
-        var city = "";
-        var region = "";
-        var country = "";
-        var loc = "";
-        var org = "";
-        $.getJSON("http://ipinfo.io", function (data) {
-          ip = data.ip; // 접속자 ip
-          hostname = data.hostname; // 접속자 hostname
-          city = data.city; // 접속자 도시
-          region = data.region; // 접속자 지역
-          country = data.country; // 접속자 국가
-          loc = data.loc; // 접속 위도, 경도
-          org = data.org; // ISP (인터넷 서비스 제공사업자)
 
-          if (country == "KR") {
-            console.log(data);
-            window.location.href = "https://cafe.naver.com/globaltwom";
-          } else {
-            fullload();
-          }
-        });
-      };
+      $.getJSON("http://ip-api.com/json", function (data) {
+        if (data.countryCode == "KR") {
+          window.location.href = "https://cafe.naver.com/globaltwom";
+        } else {
+          fullload();
+        }
+      });
       function fullload() {
         for (var i = 0; i < list.length; i++) {
           load(list[i]);
