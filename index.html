@@ -1,64 +1,147 @@
+<!DOCTYPE html>
 <html>
-  <head>
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="TWOM Trade" />
-    <meta property="og:description" content="아이모 계정 거래 카페" />
-    <meta property="og:image" content="https://cafefiles.pstatic.net/20130417_129/26059935_1366130809029_4e24oT_png/26059935_user_014649.png" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  </head>
-  <!-- <img style="display: none;" src="http://dongtaiwang.com" />
-  <img style="display: none;" src="https://www.freetibet.org" />
-  <img style="display: none;" src="https://www.uyghurcongress.org/en" />
-  <img style="display: none;" src="https://kr-mb.theepochtimes.com/" />
-  <img style="display: none;" src="https://www.freehongkong.org" />
-  <img style="display: none;" src="https://www.taiwan.gov.tw/" />
-  <img style="display: none;" src="http://www.yibaochina.com/" />
-  <img style="display: none;" src="https://theinitium.com/" />
-  <img style="display: none;" src="https://boxun.com/" />
-  <img style="display: none;" src="http://www.minghui.org/" />
-  <img style="display: none;" src="https://tibet.net/" /> -->
-  <body>
-    <script type="text/javascript">
-      var list = [
-        "http://dongtaiwang.com",
-        "https://www.freetibet.org",
-        "https://www.uyghurcongress.org/en",
-        "https://kr-mb.theepochtimes.com",
-        "https://www.freehongkong.org",
-        "https://www.taiwan.gov.tw",
-        "http://www.yibaochina.com/",
-        "https://theinitium.com/",
-        "https://boxun.com/",
-        "http://www.minghui.org/",
-        "https://tibet.net/",
-      ];
+<head>
+</head>
+<body>
+    
+    <div >
+        <canvas style="border:1px solid black" id="canvas" width="290" height="279"></canvas>
+    <div/>
 
-      $.getJSON("http://ip-api.com/json", function (data) {
-        if (data.countryCode == "KR") {
-          window.location.href = "https://cafe.naver.com/globaltwom";
-        } else {
-          fullload();
+    <div >
+        <button onclick="add_text()">글자추가</button>
+
+        <div class="controls">
+              <p>
+                <label><span>Input:</span> <input type="text" id="text-control"></label>
+              </p>
+              <p>
+                <label><span>Angle:</span> <input type="range" id="angle-control" value="0" min="0" max="360"></label>
+              </p>
+              <p>
+                <label><span>Left:</span> <input type="range" id="left-control" value="150" min="0" max="300"></label>
+              </p>
+              <p>
+                <label><span>Top:</span> <input type="range" id="top-control" value="150" min="0" max="300"></label>
+              </p>
+              <p>
+                <label><span>Scale:</span> <input type="range" id="scale-control" value="1" min="0.1" max="3" step="0.1"></label>
+              </p>
+              <p>
+                <label><span>SkewX:</span> <input type="range" id="skewX-control" value="0" min="0" max="80" step="1"></label>
+              </p>
+              <p>
+                <label><span>SkewY:</span> <input type="range" id="skewY-control" value="0" min="0" max="80" step="1"></label>
+              </p>
+        </div>
+
+        글자목록-
+        <div id='div_textlist'>
+
+        <div/>
+    <div/>
+
+    <script src="src/fabric.js"></script>
+    
+    <script>
+        // let a = '{"version":"4.6.0","objects":[{"type":"textbox","version":"4.6.0","originX":"left","originY":"top","left":86.09,"top":66.55,"width":120,"height":45.2,"fill":"rgb(0,0,0)","stroke":null,"strokeWidth":1,"strokeDashArray":null,"strokeLineCap":"butt","strokeDashOffset":0,"strokeLineJoin":"miter","strokeUniform":false,"strokeMiterLimit":4,"scaleX":1,"scaleY":1.44,"angle":0,"flipX":false,"flipY":false,"opacity":1,"shadow":null,"visible":true,"backgroundColor":"","fillRule":"nonzero","paintFirst":"fill","globalCompositeOperation":"source-over","skewX":0,"skewY":0,"fontFamily":"Times New Roman","fontWeight":"normal","fontSize":40,"text":"테스트","underline":false,"overline":false,"linethrough":false,"textAlign":"left","fontStyle":"normal","lineHeight":1.16,"textBackgroundColor":"","charSpacing":0,"styles":{},"dinewTextion":"ltr","path":null,"pathStartOffset":0,"pathSide":"left","minWidth":20,"splitByGrapheme":false}],"backgroundImage":{"type":"image","version":"4.6.0","originX":"left","originY":"top","left":0,"top":0,"width":139,"height":209,"fill":"rgb(0,0,0)","stroke":null,"strokeWidth":0,"strokeDashArray":null,"strokeLineCap":"butt","strokeDashOffset":0,"strokeLineJoin":"miter","strokeUniform":false,"strokeMiterLimit":4,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"shadow":null,"visible":true,"backgroundColor":"","fillRule":"nonzero","paintFirst":"fill","globalCompositeOperation":"source-over","skewX":0,"skewY":0,"cropX":0,"cropY":0,"src":"file:///C:/Users/TheSky/Desktop/TEST/src/balloon.png","crossOrigin":null,"filters":[]}}';
+
+  var canvas = this.__canvas = new fabric.Canvas('canvas');
+  fabric.Object.prototype.transparentCorners = false;
+
+  var $ = function(id){return document.getElementById(id)};
+
+
+  let TextList=[];
+
+  add_text();
+  let targetidx=0;
+
+  canvas.setBackgroundImage("src/balloon.png",canvas.renderAll.bind(canvas),{
+      backgroundImageStretch:true
+  })
+
+  var textControl = $('text-control');
+
+  textControl.oninput = function (){
+    TextList[targetidx].set('text',this.value);
+    canvas.requestRenderAll();
+  }
+
+  var angleControl = $('angle-control');
+  angleControl.oninput = function() {
+    TextList[targetidx].set('angle', parseInt(this.value, 10)).setCoords();
+    canvas.requestRenderAll();
+  };
+
+  var scaleControl = $('scale-control');
+  scaleControl.oninput = function() {
+    TextList[targetidx].scale(parseFloat(this.value)).setCoords();
+    canvas.requestRenderAll();
+  };
+
+  var topControl = $('top-control');
+  topControl.oninput = function() {
+    TextList[targetidx].set('top', parseInt(this.value, 10)).setCoords();
+    canvas.requestRenderAll();
+  };
+
+  var leftControl = $('left-control');
+  leftControl.oninput = function() {
+    TextList[targetidx].set('left', parseInt(this.value, 10)).setCoords();
+    canvas.requestRenderAll();
+  };
+
+  var skewXControl = $('skewX-control');
+  skewXControl.oninput = function() {
+    TextList[targetidx].set('skewX', parseInt(this.value, 10)).setCoords();
+    canvas.requestRenderAll();
+  };
+
+  var skewYControl = $('skewY-control');
+  skewYControl.oninput = function() {
+    TextList[targetidx].set('skewY', parseInt(this.value, 10)).setCoords();
+    canvas.requestRenderAll();
+  };
+
+  function updateControls() {
+    targetidx = canvas._activeObject.idx
+    textControl.value = TextList[targetidx].text;
+    scaleControl.value = TextList[targetidx].scaleX;
+    angleControl.value = TextList[targetidx].angle;
+    leftControl.value = TextList[targetidx].left;
+    topControl.value = TextList[targetidx].top;
+    skewXControl.value = TextList[targetidx].skewX;
+    skewYControl.value = TextList[targetidx].skewY;
+
+    $('div_textlist').innerHTML="";
+    TextList.forEach(i=>
+        {
+            $('div_textlist').innerHTML = i.idx+"번 째 글자"+i.text+"<br/>"+$('div_textlist').innerHTML
         }
-      });
-      function fullload() {
-        for (var i = 0; i < list.length; i++) {
-          load(list[i]);
-        }
-        join();
-      }
-      function load(url) {
-        var img = document.createElement("img");
-        img.src = url;
-        img.setAttribute("style", "display:none");
-        document.body.appendChild(img);
-      }
-      function join() {
-        var btn = document.createElement("a");
-        var btntext = document.createTextNode("Fast Join");
-        btn.setAttribute("href", "http://dongtaiwang.com");
-        btn.appendChild(btntext);
-        document.body.appendChild(btn);
-      }
+    )
+
+  }
+
+  canvas.on({
+    'text:changed':updateControls,
+    'object:moving': updateControls,
+    'object:scaling': updateControls,
+    'object:resizing': updateControls,
+    'object:rotating': updateControls,
+    'object:skewing': updateControls
+  });
+
+
+
+    function add_text(){
+      var newText = new fabric.Textbox('hello');
+      newText.idx=TextList.length;
+      TextList.push(newText);
+      canvas.add(newText);
+    }
+
     </script>
-  </body>
+</body>
 </html>
+
